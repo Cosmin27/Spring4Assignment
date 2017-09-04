@@ -20,36 +20,42 @@ import com.cgm.assignment4spring.entities.User;
 @Controller
 public class LoginController {
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(Locale locale, Model model) {
-		model.addAttribute("login", new User());
-		return new ModelAndView("login", model.asMap());
+	public ModelAndView login(Locale locale, Model model, HttpServletRequest request) {
+		if (!(Boolean) request.getSession().getAttribute("logged")) {
+			model.addAttribute("login", new User());
+			return new ModelAndView("login", model.asMap());
+		}
+		return new ModelAndView("redirect:/", model.asMap());
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView doLogin(
-			@ModelAttribute("login") User user,
-			BindingResult result, Map model, HttpServletRequest request) {
-
-		// validation result
-		if (result.hasErrors()) {
-			return new ModelAndView("user", model);
-		}
-
-		//System.out.println("USERNAME: " + user.getUsername() + " PASSWORD: " + user.getPassword());
-		for(User userAccount : ArtefactBuilder.userAccounts()) {
-			if(userAccount.getUsername().equals(user.getUsername()) && userAccount.getPassword().equals(user.getPassword())) {
-				request.getSession().setAttribute("logged", true);
-				userAccount.setLogged(true);
-				request.getSession().setAttribute("userAccount", userAccount);
-				request.getSession().setAttribute("usernameString", userAccount.getUsername());
-				
-				return new ModelAndView("redirect:/", model);
+	public ModelAndView doLogin(@ModelAttribute("login") User user, BindingResult result, Map model,
+			HttpServletRequest request) {
+		if (!(Boolean) request.getSession().getAttribute("logged")) {
+			// validation result
+			if (result.hasErrors()) {
+				return new ModelAndView("login", model);
 			}
+
+			// System.out.println("USERNAME: " + user.getUsername() + " PASSWORD: " +
+			// user.getPassword());
+			for (User userAccount : ArtefactBuilder.userAccounts()) {
+				if (userAccount.getUsername().equals(user.getUsername())
+						&& userAccount.getPassword().equals(user.getPassword())) {
+					request.getSession().setAttribute("logged", true);
+					userAccount.setLogged(true);
+					request.getSession().setAttribute("userAccount", userAccount);
+					request.getSession().setAttribute("usernameString", userAccount.getUsername());
+
+					return new ModelAndView("redirect:/", model);
+				}
+			}
+			// Literally do nothing, except re-initialization
+
+			return new ModelAndView("redirect:/login", model);
 		}
-		// Literally do nothing, except re-initialization
-		
-		return new ModelAndView("redirect:/login", model);
-		
+		return new ModelAndView("redirect:/", model);
+
 	}
 }

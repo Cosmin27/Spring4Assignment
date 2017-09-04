@@ -17,14 +17,16 @@
 				<c:choose>
 					<c:when test="${sessionScope.logged == true}">
 						<a href="/assignment4spring/friends">Friends</a>
+						<a href="/assignment4spring/about">About</a>
 						<a href="/assignment4spring/logout">Log out</a>
 					</c:when>
 
 					<c:otherwise>
+						<a href="/assignment4spring/about">About</a>
 						<a href="/assignment4spring/login">Login</a>
 					</c:otherwise>
 				</c:choose>
-				<a href="/assignment4spring/about">About</a>
+				
 			</div>
 		</div>
 	</div>
