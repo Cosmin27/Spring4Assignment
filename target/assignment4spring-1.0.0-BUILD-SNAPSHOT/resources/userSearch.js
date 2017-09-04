@@ -14,12 +14,12 @@ $(document).ready(function() {
 				for(var index = 0; index < data.length; index++) {
 					var hasFriend = false;
 					var friends = data[index].friends;
-//					for(var friendIndex = 0; index < friends.length; friendIndex++) {
-//						console.log(friends[friendIndex].username + " " + data[index].username);
-//						if(friends[friendIndex].username == data[index].username) {
-//							hasFriend = true;
-//						}
-//					}
+					for(var friendIndex = 0; index < friends.length; friendIndex++) {
+						console.log(friends[friendIndex].username + " " + data[index].username);
+						if(friends[friendIndex].username == data[index].username) {
+							hasFriend = true;
+						}
+					}
 					if(hasFriend) {
 						
 					}
@@ -49,13 +49,13 @@ $(document).ready(function() {
 							$("#searchResults").append("<p>Search results:</p>");
 							for(var index = 0; index < data.length; index++) {
 								var hasFriend = false;
-//								var friends = data[index].friends;
-//								for(var friendIndex = 0; index < friends.length; friendIndex++) {
-//									console.log(friends[friendIndex].username + " " + data[index].username);
-//									if(friends[friendIndex].username == data[index].username) {
-//										hasFriend = true;
-//									}
-//								}
+								var friends = data[index].friends;
+								for(var friendIndex = 0; index < friends.length; friendIndex++) {
+									console.log(friends[friendIndex].username + " " + data[index].username);
+									if(friends[friendIndex].username == data[index].username) {
+										hasFriend = true;
+									}
+								}
 								if(hasFriend) {
 									
 								}
@@ -81,13 +81,13 @@ function loadInitialList() {
 		console.log(data);
 		for(var index = 0; index < data.length; index++) {
 			var hasFriend = false;
-//			var friends = data[index].friends;
-//			for(var friendIndex = 0; index < friends.length; friendIndex++) {
-//				console.log(friends[friendIndex].username + " " + data[index].username);
-//				if(friends[friendIndex].username == data[index].username) {
-//					hasFriend = true;
-//				}
-//			}
+			var friends = data[index].friends;
+			for(var friendIndex = 0; index < friends.length; friendIndex++) {
+				console.log(friends[friendIndex].username + " " + data[index].username);
+				if(friends[friendIndex].username == data[index].username) {
+					hasFriend = true;
+				}
+			}
 			if(hasFriend) {
 				
 			}
