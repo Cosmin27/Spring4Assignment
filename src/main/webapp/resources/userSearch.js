@@ -1,10 +1,38 @@
 $(document).ready(function() {
 	$("#searchResults").on('click', '.btn-follow-user', function(event) {
 		console.log("here follow " + event.currentTarget.id);
+		var urlString = "http://localhost:8080/assignment4spring/followUserRest/";
+		urlString += event.currentTarget.id;
+		$.ajax({
+			url: urlString,
+			type:'PUT',
+			dataType : 'json'
+			}).then(function(data) {
+				//console.log(data);
+				if(data.code == 200) {
+					var buttonID = "#" + event.currentTarget.id;
+					$(buttonID).val("Unfollow");
+					$(buttonID).removeClass("btn-follow-user").addClass("btn-unfollow-user");
+				}
+			});
 	});
 	
 	$("#searchResults").on('click', '.btn-unfollow-user', function(event) {
 		console.log("here unfollow " + event.currentTarget.id);
+		var urlString = "http://localhost:8080/assignment4spring/unfollowUserRest/";
+		urlString += event.currentTarget.id;
+		$.ajax({
+			url: urlString,
+			type:'PUT',
+			dataType : 'json'
+			}).then(function(data) {
+				//console.log(data);
+				if(data.code == 200) {
+					var buttonID = "#" + event.currentTarget.id;
+					$(buttonID).val("Follow");
+					$(buttonID).removeClass("btn-unfollow-user").addClass("btn-follow-user");
+				}
+			});
 	});
 	
 	$("#userSearch").keyup(function() {
@@ -25,10 +53,10 @@ $(document).ready(function() {
 						}
 					}
 					if(hasFriend) {
-						$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"removeuser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Unfollow\" class=\"btn btn-unfollow-user\" /></p>");
+						$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"addremoveuser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Unfollow\" class=\"btn btn-unfollow-user\" /></p>");
 					}
 					else {
-						$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"adduser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Follow\" class=\"btn btn-follow-user\" /></p>");
+						$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"addremoveuser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Follow\" class=\"btn btn-follow-user\" /></p>");
 					}
 				}
 			});

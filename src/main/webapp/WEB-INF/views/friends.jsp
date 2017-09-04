@@ -58,50 +58,7 @@
 						</div>
 						<br>
 					</div>
-						<c:forEach var="usersList" items="${users}">
-									<c:set var="hasFriend" value="false"> 
-									</c:set>
-									
-									<c:forEach var="element" items="${sessionScope.userAccount.friends}">
-										<c:if test="${element.username == usersList.username}">
-											<c:set var="hasFriend" value="true" />
-											
-										</c:if>
-										
-									
-									</c:forEach>
-									
-										<c:choose>
-											<c:when test="${hasFriend == true && sessionScope.userAccount.username != usersList.username}">
-												<div class="list_items">
-												
-												
-												<div class="button-wrapper">
-													<div class="button_holder">
-														<span class="bold_font"> ${usersList.username} </span>
-														<a class= "fct_btn" href="unfollowUser/${usersList.username}">Unfollow</a>
-														</div>
-													
-												</div>
-												
-											</div>
-											</c:when>
-											<c:when test="${hasFriend == false && sessionScope.userAccount.username != usersList.username}">
-												<div class="list_items"><div class="button-wrapper">
-													
-													
-													<div class="button_holder">
-														<span class="bold_font"> ${usersList.username} </span>
-														<a class= "fct_btn" href="followUser/${usersList.username}">Follow</a>
-														</div>
-													
-												</div></div>
-											</c:when>
-										</c:choose>
-									
-								
-							
-						</c:forEach>
+						
 					</div>
 				</div>
 			</div>

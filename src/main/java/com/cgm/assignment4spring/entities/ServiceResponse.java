@@ -4,6 +4,15 @@ public class ServiceResponse {
 	private String message = "Operation successful!";
 	private int code = 200;
 	
+	public ServiceResponse() {
+		
+	}
+	
+	public ServiceResponse(String message, int code) {
+		this.message = message;
+		this.code = code;
+	}
+	
 	public String getMessage() {
 		return message;
 	}
