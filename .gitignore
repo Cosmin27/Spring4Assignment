@@ -18,6 +18,9 @@
 *.tar.gz
 *.rar
 
+.classpath/
+.project/
+.springBeans/
 .settings/
 target/
 
