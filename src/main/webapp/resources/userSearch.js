@@ -1,6 +1,10 @@
 $(document).ready(function() {
 	$("#searchResults").on('click', '.btn-follow-user', function(event) {
-		console.log("here " + event.currentTarget.id);
+		console.log("here follow " + event.currentTarget.id);
+	});
+	
+	$("#searchResults").on('click', '.btn-unfollow-user', function(event) {
+		console.log("here unfollow " + event.currentTarget.id);
 	});
 	
 	$("#userSearch").keyup(function() {
@@ -13,15 +17,15 @@ $(document).ready(function() {
 			}).then(function(data) {
 				for(var index = 0; index < data.length; index++) {
 					var hasFriend = false;
-					var friends = data[index].friends;
-//					for(var friendIndex = 0; index < friends.length; friendIndex++) {
-//						console.log(friends[friendIndex].username + " " + data[index].username);
-//						if(friends[friendIndex].username == data[index].username) {
-//							hasFriend = true;
-//						}
-//					}
+					var friends = data[index].friendsAsStrings;
+					for(var friendIndex = 0; friendIndex < friends.length; friendIndex++) {
+						//console.log(friends[friendIndex].username + " " + data[index].username);
+						if(friends[friendIndex] == usernameString) {
+							hasFriend = true;
+						}
+					}
 					if(hasFriend) {
-						
+						$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"removeuser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Unfollow\" class=\"btn btn-unfollow-user\" /></p>");
 					}
 					else {
 						$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"adduser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Follow\" class=\"btn btn-follow-user\" /></p>");
@@ -49,15 +53,15 @@ $(document).ready(function() {
 							$("#searchResults").append("<p>Search results:</p>");
 							for(var index = 0; index < data.length; index++) {
 								var hasFriend = false;
-//								var friends = data[index].friends;
-//								for(var friendIndex = 0; index < friends.length; friendIndex++) {
-//									console.log(friends[friendIndex].username + " " + data[index].username);
-//									if(friends[friendIndex].username == data[index].username) {
-//										hasFriend = true;
-//									}
-//								}
+								var friends = data[index].friendsAsStrings;
+								for(var friendIndex = 0; friendIndex < friends.length; friendIndex++) {
+									//console.log(friends[friendIndex].username + " " + data[index].username);
+									if(friends[friendIndex] == usernameString) {
+										hasFriend = true;
+									}
+								}
 								if(hasFriend) {
-									
+									$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"removeuser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Unfollow\" class=\"btn btn-unfollow-user\" /></p>");
 								}
 								else {
 									$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"adduser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Follow\" class=\"btn btn-follow-user\" /></p>");
@@ -78,18 +82,16 @@ function loadInitialList() {
 		url : urlString,
 		dataType : 'json'
 	}).then(function(data) {
-		console.log(data);
 		for(var index = 0; index < data.length; index++) {
 			var hasFriend = false;
-//			var friends = data[index].friends;
-//			for(var friendIndex = 0; index < friends.length; friendIndex++) {
-//				console.log(friends[friendIndex].username + " " + data[index].username);
-//				if(friends[friendIndex].username == data[index].username) {
-//					hasFriend = true;
-//				}
-//			}
+			var friends = data[index].friendsAsStrings;
+			for(var friendIndex = 0; friendIndex < friends.length; friendIndex++) {
+				if(friends[friendIndex] == usernameString) {
+					hasFriend = true;
+				}
+			}
 			if(hasFriend) {
-				
+				$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"removeuser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Unfollow\" class=\"btn btn-unfollow-user\" /></p>");
 			}
 			else {
 				$("#searchResults").append("<p><span class=\"bold_font\">" + data[index].username + "</span> <input name=\"adduser\" type=\"button\" id=\"" + data[index].username + "\" value=\"Follow\" class=\"btn btn-follow-user\" /></p>");

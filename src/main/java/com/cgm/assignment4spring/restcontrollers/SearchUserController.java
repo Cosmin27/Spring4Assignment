@@ -1,6 +1,7 @@
 package com.cgm.assignment4spring.restcontrollers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,10 +17,10 @@ import com.cgm.assignment4spring.entities.User;
 @RestController
 public class SearchUserController {
 	@RequestMapping(value="/search/{username}", method=RequestMethod.GET, produces = "application/json")
-	public ArrayList<User> searchForUsername(@PathVariable String username) {
+	public ArrayList<User> searchForUsername(@PathVariable String username, HttpServletRequest request) {
 		ArrayList<User> users = new ArrayList<User>();
 		for(User user : ArtefactBuilder.userAccounts()) {
-			if(user.getUsername().toLowerCase().contains(username.toLowerCase())) {
+			if(user.getUsername().toLowerCase().contains(username.toLowerCase()) && !user.getUsername().equals(request.getSession().getAttribute("usernameString"))) {
 				users.add(user);
 			}
 		}

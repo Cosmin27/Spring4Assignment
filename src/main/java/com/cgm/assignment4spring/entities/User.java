@@ -14,7 +14,7 @@ public class User {
 	@JsonIgnore
 	private List<User> friends;
 	
-	private List<String> friendsAsStrings = new ArrayList<String>();
+	private ArrayList<String> friendsAsStrings = new ArrayList<String>();
 
 	public User() {
 		this.friends = new ArrayList<User>();
@@ -71,17 +71,14 @@ public class User {
 		if(!this.friends.isEmpty()) {
 			if(this.friends.contains(user)) {
 				this.friends.remove(user);
+				this.friendsAsStrings.remove(user.getUsername());
 				user.removeFriend(this);
 			}
 		}
 	}
 	
-	@JsonIgnore
+	
 	public ArrayList<String> getFriendsAsStrings() {
-		ArrayList<String> friendsStrings = new ArrayList<String>();
-		for(User user : friends) {
-			friendsStrings.add(user.getUsername());
-		}
-		return friendsStrings;
+		return friendsAsStrings;
 	}
 }
