@@ -17,7 +17,7 @@ public class FriendsController {
 	@RequestMapping(value = "/friends", method = RequestMethod.GET)
 	public ModelAndView listUsers(Locale locale, Model model, HttpServletRequest request) {
 		if ((Boolean) request.getSession().getAttribute("logged")) {
-			model.addAttribute("users", ArtefactBuilder.userAccounts());
+			//model.addAttribute("users", ArtefactBuilder.userAccounts());
 			return new ModelAndView("friends", model.asMap());
 		}
 		return new ModelAndView("redirect:/", model.asMap());

@@ -13,15 +13,18 @@
 		<div class="header">
 			<div class="page_title">Assignment</div>
 			<div class="main_menu">
-				<a href="/assignment4spring/">Home</a> 
+				
 				<c:choose>
 					<c:when test="${sessionScope.logged == true}" >
+						<p><span style="color:white">Logged in as ${sessionScope.usernameString}   |   </span>
+						<a href="/assignment4spring/">Home</a>
 						<a href="/assignment4spring/friends">Friends</a>
 						<a href="/assignment4spring/about">About</a>
-						<a href="/assignment4spring/logout">Log out</a>
+						<a href="/assignment4spring/logout">Log out</a></p>
 					</c:when>
 					
 					<c:otherwise>
+						<a href="/assignment4spring/">Home</a>
 						<a href="/assignment4spring/about">About</a>
 						<a href="/assignment4spring/login">Login</a>
 					</c:otherwise>

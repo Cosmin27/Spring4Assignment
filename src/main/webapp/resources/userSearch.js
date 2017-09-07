@@ -35,7 +35,13 @@ $(document).ready(function() {
 			});
 	});
 	
-	$("#userSearch").keyup(function() {
+	$("#userSearch").keydown(function(event) {
+		if(event.which == 13) {
+			event.preventDefault();
+		}
+	});
+	
+	$("#userSearch").keyup(function(event) {
 		var urlString = "http://localhost:8080/assignment4spring/search/";
 		if($("#userSearch").val().length == 0) {
 			$("#searchResults").empty();
